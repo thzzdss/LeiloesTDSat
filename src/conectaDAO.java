@@ -4,30 +4,53 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
-
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
 /**
  *
  * @author Adm
  */
 public class conectaDAO {
-    
-    public Connection connectDB(){
-        Connection conn = null;
-        
-        try {
-        
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/uc11?user=root&password=Thzinho#@!#@!");
-            
-        } catch (SQLException erro){
-            JOptionPane.showMessageDialog(null, "Erro ConectaDAO" + erro.getMessage());
-        }
-        return conn;
+
+    Connection conexao;
+
+    public Connection getConexao() {
+        return conexao;
     }
-    
+
+    public void setConexao(Connection conexao) {
+        this.conexao = conexao;
+    }
+
+    public final boolean conectar() {
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/uc11", "root", "Thzinho#@!#@!");
+
+        } catch (ClassNotFoundException cnfe) {
+            System.out.println("CLASSE INEXISTENTE.");
+        } catch (SQLException se) {
+            System.out.println("ERRO AO CONECTAR NO BANCO DE DADOS.");
+
+        }
+        return false;
+    }
+
+    public final void desconectar() {
+        try {
+            if (conexao != null) {
+                conexao.close();
+
+            } else {
+                System.out.println("O BANCO DE DADOS JA ESTA FECHADO.");
+            }
+        } catch (SQLException se) {
+            System.out.println("ERRO AO FECHAR O BANCO DE DADOS.");
+        }
+
+    }
+
 }
