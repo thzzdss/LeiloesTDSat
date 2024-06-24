@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public class ProdutosDAO {
+
     //
     PreparedStatement stmt = null;
     ResultSet rs = null;
@@ -73,19 +74,38 @@ public class ProdutosDAO {
         }
         return listagem;
     }
-    
-    public void venderProduto(int id){
-        try{
-            String id2 = listagem.get(id).toString();
-            System.out.println("ID: " + id2);
-            
-            
-            
-        }catch(Exception e){
-            //JOptionPane.showMessageDialog(null, "ERRO AO VENDER PRODUTO.", "Erro", JOptionPane.ERROR_MESSAGE);
-        }finally{
-            //conexao.desconectar();
+
+    public void venderProduto(int id) {
+        try {
+          conexao.conectar();
+
+        String sql = "SELECT * FROM produtos WHERE id = ? AND status != 'Vendido'";
+        stmt = conexao.getConexao().prepareStatement(sql);
+        stmt.setInt(1, id);
+        ResultSet rs = stmt.executeQuery();
+
+        if (!rs.next()) {
+            JOptionPane.showMessageDialog(null, "O PRODUTO JÁ ESTÁ VENDIDO.");
+            return; 
         }
+
+        
+        sql = "UPDATE produtos SET status = 'Vendido' WHERE id = ?";
+        stmt = conexao.getConexao().prepareStatement(sql);
+        stmt.setInt(1, id);
+        int verificacao = stmt.executeUpdate();
+
+        if (verificacao > 0) {
+            JOptionPane.showMessageDialog(null, "PRODUTO VENDIDO COM SUCESSO.");
+        } else {
+            JOptionPane.showMessageDialog(null, "ERRO AO VENDER PRODUTO.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "ERRO AO VENDER PRODUTO." + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+    } finally {
+        conexao.desconectar();
+    }
     }
 
 }
