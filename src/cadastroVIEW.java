@@ -148,13 +148,9 @@ public class cadastroVIEW extends javax.swing.JFrame {
         } else {
             try {
                 ProdutosDTO produto = new ProdutosDTO();
-                String nome = cadastroNome.getText();
-                String valor = cadastroValor.getText();
-                String status = "A Venda";
-                produto.setNome(nome);
-                produto.setValor(Integer.parseInt(valor));
-                produto.setStatus(status);
-
+                produto.setNome(cadastroNome.getText());
+                produto.setValor(Integer.parseInt(cadastroValor.getText()));
+                produto.setStatus("A Venda");
                 ProdutosDAO produtodao = new ProdutosDAO();
                 produtodao.cadastrarProduto(produto);
             } catch (NumberFormatException ex) {
