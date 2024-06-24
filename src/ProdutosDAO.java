@@ -73,5 +73,19 @@ public class ProdutosDAO {
         }
         return listagem;
     }
+    
+    public void venderProduto(int id){
+        try{
+            String id2 = listagem.get(id).toString();
+            System.out.println("ID: " + id2);
+            
+            
+            
+        }catch(Exception e){
+            //JOptionPane.showMessageDialog(null, "ERRO AO VENDER PRODUTO.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }finally{
+            //conexao.desconectar();
+        }
+    }
 
 }
