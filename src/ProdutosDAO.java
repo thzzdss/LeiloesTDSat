@@ -126,7 +126,7 @@ public class ProdutosDAO {
                 listagemVendidos.add(produto);
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao listar produtos vendidos: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "ERRO AO LISTAR PRODUTOS VENDIDOS: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         } finally {
             conexao.desconectar();
         }
