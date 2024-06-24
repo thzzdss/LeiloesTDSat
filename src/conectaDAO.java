@@ -29,12 +29,12 @@ public class conectaDAO {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/uc11", "root", "Thzinho#@!#@!");
-
+            return true;
         } catch (ClassNotFoundException cnfe) {
             System.out.println("CLASSE INEXISTENTE.");
         } catch (SQLException se) {
             System.out.println("ERRO AO CONECTAR NO BANCO DE DADOS.");
-
+            
         }
         return false;
     }
